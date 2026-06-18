@@ -5,6 +5,7 @@ from app.core.dependencies import get_db
 from app.schemas.user import UserCreate
 from app.services.user_service import create_user
 from app.models.user import User
+from app.services.leetcode_services import get_profile
 
 router = APIRouter()
 
@@ -18,3 +19,7 @@ def add_user(
 @router.get("/users")
 def get_users(db: Session = Depends(get_db)):
     return db.query(User).all()
+
+@router.get("/leetcode/{username}")
+def fetch_profile(username: str):
+    return get_profile(username)
